@@ -38,7 +38,7 @@ int main() {
     }
 
     // Affichage formaté avec majuscule et espace après ":"
-    printf("Intersection :");
+    printf("Intersection : ");
     for (int i = 0; i < taille_inter; i++) {
         printf(" %d", inter[i]);
     }
