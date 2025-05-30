@@ -17,18 +17,18 @@ int main() {
 
     // Affichage des éléments communs sans doublons
     for (int i = 0; i < n1; i++) {
-        int deja_affiche = 0;
+        int deja_vu = 0;
 
-        // Vérifier si l'élément a[i] a déjà été traité
+        // Vérifie si a[i] a déjà été traité
         for (int k = 0; k < i; k++) {
             if (a[i] == a[k]) {
-                deja_affiche = 1;
+                deja_vu = 1;
                 break;
             }
         }
-        if (deja_affiche) continue;
+        if (deja_vu) continue;
 
-        // Vérifier si a[i] existe dans b[]
+        // Vérifie si a[i] est présent dans b[]
         for (int j = 0; j < n2; j++) {
             if (a[i] == b[j]) {
                 printf("%d ", a[i]);
