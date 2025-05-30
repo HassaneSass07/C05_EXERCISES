@@ -3,48 +3,54 @@
 int main() {
     int n1, n2;
 
-    // Lire la taille et les éléments du premier tableau
+    // Lecture du premier tableau
     scanf("%d", &n1);
     int a[n1];
-    for (int i = 0; i < n1; i++) {
+    for (int i = 0; i < n1; i++)
         scanf("%d", &a[i]);
-    }
 
-    // Lire la taille et les éléments du deuxième tableau
+    // Lecture du deuxième tableau
     scanf("%d", &n2);
     int b[n2];
-    for (int i = 0; i < n2; i++) {
+    for (int i = 0; i < n2; i++)
         scanf("%d", &b[i]);
-    }
 
-    // Parcourir chaque élément du premier tableau
+    int intersection[n1 < n2 ? n1 : n2]; // Taille max = min(n1,n2)
+    int taille_intersection = 0;
+
+    // Chercher les éléments communs
     for (int i = 0; i < n1; i++) {
-        int doublon = 0;
-
-        // Vérifier si cet élément a déjà été affiché (éviter doublons)
-        for (int k = 0; k < i; k++) {
-            if (a[i] == a[k]) {
-                doublon = 1;
-                break;
-            }
-        }
-        if (doublon) continue;
-
-        // Vérifier si l'élément est présent dans le deuxième tableau
-        int commun = 0;
+        // Vérifier si a[i] est dans b
+        int dans_b = 0;
         for (int j = 0; j < n2; j++) {
             if (a[i] == b[j]) {
-                commun = 1;
+                dans_b = 1;
                 break;
             }
         }
+        if (!dans_b)
+            continue;
 
-        // Afficher si l'élément est commun
-        if (commun) {
-            printf("%d ", a[i]);
+        // Vérifier que a[i] n'est pas déjà dans intersection
+        int deja_present = 0;
+        for (int k = 0; k < taille_intersection; k++) {
+            if (intersection[k] == a[i]) {
+                deja_present = 1;
+                break;
+            }
+        }
+        if (!deja_present) {
+            intersection[taille_intersection++] = a[i];
         }
     }
 
+    // Affichage de l'intersection
+    for (int i = 0; i < taille_intersection; i++) {
+        printf("%d", intersection[i]);
+        if (i < taille_intersection - 1)
+            printf(" ");
+    }
     printf("\n");
+
     return 0;
 }
