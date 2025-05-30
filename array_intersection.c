@@ -1,78 +1,75 @@
 #include <stdio.h>
-#include <stdbool.h> // For boolean type
-#include <stdlib.h>  // For malloc and free
 
-// Function to check if an element is already in an array (for uniqueness)
-bool isElementInArray(int *arr, int size, int element) {
-    for (int i = 0; i < size; i++) {
-        if (arr[i] == element) {
-            return true;
+// Fonction pour vérifier si un 'element' est déjà présent dans un 'tableau' de 'taille' donnée.
+int estElementDansTableau(int *tableau, int taille, int element) {
+    for (int i = 0; i < taille; i++) {
+        if (tableau[i] == element) {
+            return 1; // L'élément est trouvé, retourne 1 (vrai)
         }
     }
-    return false;
+    return 0; // L'élément n'est pas trouvé, retourne 0 (faux)
 }
 
 int main() {
-    int n1, n2;
+    int taille1, taille2; // Variables pour stocker les tailles des deux tableaux
 
-    // Get size of the first array
-    printf("Enter the size of the first array: ");
-    scanf("%d", &n1);
+    // --- Saisie du premier tableau ---
+    printf("Entrez la taille du premier tableau : ");
+    scanf("%d", &taille1);
 
-    int arr1[n1];
-    printf("Enter %d elements for the first array:\n", n1);
-    for (int i = 0; i < n1; i++) {
-        scanf("%d", &arr1[i]);
+    // Déclaration du premier tableau 
+    int tableau1[taille1];
+    printf("Entrez %d éléments pour le premier tableau :\n", taille1);
+    for (int i = 0; i < taille1; i++) {
+        scanf("%d", &tableau1[i]);
     }
 
-    // Get size of the second array
-    printf("Enter the size of the second array: ");
-    scanf("%d", &n2);
+    // --- Saisie du deuxième tableau ---
+    printf("Entrez la taille du deuxième tableau : ");
+    scanf("%d", &taille2);
 
-    int arr2[n2];
-    printf("Enter %d elements for the second array:\n", n2);
-    for (int i = 0; i < n2; i++) {
-        scanf("%d", &arr2[i]);
+    // Déclaration du deuxième tableau 
+    int tableau2[taille2];
+    printf("Entrez %d éléments pour le deuxième tableau :\n", taille2);
+    for (int i = 0; i < taille2; i++) {
+        scanf("%d", &tableau2[i]);
     }
 
-    // Create a temporary array to store intersection elements
-    // The maximum possible intersection size is the minimum of n1 and n2
-    int maxIntersectionSize = (n1 < n2) ? n1 : n2;
-    int *intersectionArray = (int *)malloc(maxIntersectionSize * sizeof(int));
-    if (intersectionArray == NULL) {
-        printf("Memory allocation failed!\n");
-        return 1;
-    }
+    // --- Préparation pour le tableau d'intersection ---
+    // La taille maximale possible de l'intersection est la taille du plus petit des deux tableaux.
+    int tailleMaxIntersection = (taille1 < taille2) ? taille1 : taille2;
 
-    int intersectionCount = 0;
+    // Déclaration du tableau d'intersection 
+    int tableauIntersection[tailleMaxIntersection];
+    
+    int compteurIntersection = 0; // Compteur pour le nombre d'éléments dans l'intersection
 
-    // Find common elements
-    for (int i = 0; i < n1; i++) {
-        for (int j = 0; j < n2; j++) {
-            if (arr1[i] == arr2[j]) {
-                // Check if the element is already added to avoid duplicates in intersection
-                if (!isElementInArray(intersectionArray, intersectionCount, arr1[i])) {
-                    intersectionArray[intersectionCount] = arr1[i];
-                    intersectionCount++;
+    // --- Recherche des éléments communs (intersection) ---
+    for (int i = 0; i < taille1; i++) {
+        // Pour chaque élément du premier tableau, on le compare avec chaque élément du deuxième tableau
+        for (int j = 0; j < taille2; j++) {
+            if (tableau1[i] == tableau2[j]) { 
+                // Utilise la fonction 'estElementDansTableau' qui retourne 0 ou 1.
+                if (estElementDansTableau(tableauIntersection, compteurIntersection, tableau1[i]) == 0) {
+                    tableauIntersection[compteurIntersection] = tableau1[i]; // Ajoute l'élément
+                    compteurIntersection++; 
                 }
-                break; // Move to the next element in arr1 once a match is found
+                break; 
+                      
             }
         }
     }
 
-    // Print the intersection
+    // --- Affichage du résultat ---
     printf("Intersection : ");
-    if (intersectionCount == 0) {
-        printf("No common elements.\n");
+    if (compteurIntersection == 0) {
+        printf("Aucun élément commun.\n");
     } else {
-        for (int i = 0; i < intersectionCount; i++) {
-            printf("%d ", intersectionArray[i]);
+        for (int i = 0; i < compteurIntersection; i++) {
+            printf("%d ", tableauIntersection[i]);
         }
         printf("\n");
     }
 
-    // Free dynamically allocated memory
-    free(intersectionArray);
-
-    return 0;
+    return 0; 
 }
