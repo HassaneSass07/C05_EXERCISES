@@ -19,7 +19,6 @@ int main() {
 
     // Pour chaque élément de a
     for (int i = 0; i < n1; i++) {
-        // Vérifier si déjà dans inter
         int deja = 0;
         for (int k = 0; k < taille_inter; k++) {
             if (inter[k] == a[i]) {
@@ -38,7 +37,7 @@ int main() {
         }
     }
 
-    // Affichage formaté avec espace uniquement entre éléments
+    // Affichage formaté avec majuscule et espace après ":"
     printf("Intersection :");
     for (int i = 0; i < taille_inter; i++) {
         printf(" %d", inter[i]);
