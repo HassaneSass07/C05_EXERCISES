@@ -2,8 +2,6 @@
 
 int main() {
     int n1, n2;
-    
-    // Lire les tailles
     scanf("%d", &n1);
     int a[n1];
     for (int i = 0; i < n1; i++)
@@ -14,20 +12,21 @@ int main() {
     for (int i = 0; i < n2; i++)
         scanf("%d", &b[i]);
 
-    // Parcourir le tableau a[]
+    // Parcourir le premier tableau
     for (int i = 0; i < n1; i++) {
-        int deja_vu = 0;
+        int deja_affiche = 0;
 
-        // Vérifie si a[i] est déjà apparu avant dans a[]
-        for (int j = 0; j < i; j++) {
-            if (a[i] == a[j]) {
-                deja_vu = 1;
+        // Vérifie si a[i] a déjà été traité
+        for (int k = 0; k < i; k++) {
+            if (a[i] == a[k]) {
+                deja_affiche = 1;
                 break;
             }
         }
-        if (deja_vu) continue;
+        if (deja_affiche)
+            continue;
 
-        // Vérifie si a[i] existe dans b[]
+        // Vérifie si a[i] est présent dans b[]
         for (int j = 0; j < n2; j++) {
             if (a[i] == b[j]) {
                 printf("%d ", a[i]);
