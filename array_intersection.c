@@ -2,41 +2,59 @@
 
 int main() {
     int n1, n2;
-    scanf("%d", &n1);               // taille du premier tableau
+
+    // Lire les tailles et les tableaux
+    scanf("%d", &n1);
     int a[n1];
     for (int i = 0; i < n1; i++)
-        scanf("%d", &a[i]);         // lecture de a[]
+        scanf("%d", &a[i]);
 
-    scanf("%d", &n2);               // taille du deuxième tableau
+    scanf("%d", &n2);
     int b[n2];
     for (int i = 0; i < n2; i++)
-        scanf("%d", &b[i]);         // lecture de b[]
+        scanf("%d", &b[i]);
 
-    int printed = 0;                // flag pour gérer les espaces
+    // Préparer l'espace pour l'intersection (taille minimale)
+    int max_size;
+    if (n1 < n2)
+        max_size = n1;
+    else
+        max_size = n2;
+    int inter[max_size];
+    int sz = 0;
 
-    // pour chaque élément de a[]
+    // Remplir inter[] avec les éléments communs (sans doublons)
     for (int i = 0; i < n1; i++) {
-        int seen_before = 0;
-        // éviter les doublons en a[]
-        for (int k = 0; k < i; k++) {
-            if (a[i] == a[k]) {
-                seen_before = 1;
-                break;
-            }
-        }
-        if (seen_before) continue;
-
-        // vérifier présence dans b[]
+        // Vérifier présence dans b[]
+        int in_b = 0;
         for (int j = 0; j < n2; j++) {
             if (a[i] == b[j]) {
-                if (printed) putchar(' ');
-                printf("%d", a[i]);
-                printed = 1;
+                in_b = 1;
                 break;
             }
         }
+        if (!in_b)
+            continue;
+
+        // Vérifier doublon dans inter[]
+        int in_inter = 0;
+        for (int k = 0; k < sz; k++) {
+            if (a[i] == inter[k]) {
+                in_inter = 1;
+                break;
+            }
+        }
+        if (!in_inter)
+            inter[sz++] = a[i];
     }
 
-    putchar('\n');
+    // Afficher l'intersection
+    for (int i = 0; i < sz; i++) {
+        printf("%d", inter[i]);
+        if (i + 1 < sz)
+            printf(" ");
+    }
+    printf("\n");
+
     return 0;
 }
