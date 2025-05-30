@@ -2,58 +2,58 @@
 
 int main() {
     int n1, n2;
-
-    // Lire la taille du premier tableau
+    
+    // Lecture des tableaux
     scanf("%d", &n1);
     int a[n1];
-    for (int i = 0; i < n1; i++)
+    for (int i = 0; i < n1; i++) 
         scanf("%d", &a[i]);
-
-    // Lire la taille du deuxième tableau
+    
     scanf("%d", &n2);
     int b[n2];
-    for (int i = 0; i < n2; i++)
+    for (int i = 0; i < n2; i++) 
         scanf("%d", &b[i]);
-
-    int intersection[n1 + n2]; // tableau temporaire pour stocker les communs
-    int taille_intersection = 0;
-
-    // Parcourir le premier tableau
+    
+    // Variables pour l'intersection
+    int intersection[n1 < n2 ? n1 : n2];
+    int count = 0;
+    
+    // Calcul de l'intersection
     for (int i = 0; i < n1; i++) {
-        int commun = 0;
-
-        // Vérifie si l'élément de a[] est présent dans b[]
+        // Chercher a[i] dans b
+        int found = 0;
         for (int j = 0; j < n2; j++) {
             if (a[i] == b[j]) {
-                commun = 1;
+                found = 1;
                 break;
             }
         }
-
-        // Vérifie que ce n'est pas un doublon dans le tableau résultat
-        if (commun) {
-            int deja_present = 0;
-            for (int k = 0; k < taille_intersection; k++) {
+        
+        // Si trouvé, vérifier les doublons
+        if (found) {
+            int duplicate = 0;
+            for (int k = 0; k < count; k++) {
                 if (intersection[k] == a[i]) {
-                    deja_present = 1;
+                    duplicate = 1;
                     break;
                 }
             }
-
-            // Si l'élément est commun et pas encore ajouté, on l'ajoute
-            if (!deja_present) {
-                intersection[taille_intersection] = a[i];
-                taille_intersection++;
+            
+            // Ajouter si pas de doublon
+            if (!duplicate) {
+                intersection[count++] = a[i];
             }
         }
     }
-
-    // Afficher les éléments communs
-    printf("Intersection :");
-    for (int i = 0; i < taille_intersection; i++) {
-        printf(" %d", intersection[i]);
+    
+    // Affichage
+    if (count > 0) {
+        printf("%d", intersection[0]);
+        for (int i = 1; i < count; i++) {
+            printf(" %d", intersection[i]);
+        }
     }
     printf("\n");
-
+    
     return 0;
 }
