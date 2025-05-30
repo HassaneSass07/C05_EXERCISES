@@ -19,32 +19,6 @@ int main() {
 
     // Afficher l'en-tête
     printf("Intersection :");
-
-    // Rechercher les éléments communs sans doublons
-    for (int i = 0; i < n1; i++) {
-        int existe_deja = 0;
-
-        // Vérifier si a[i] a déjà été affiché
-        for (int k = 0; k < i; k++) {
-            if (a[i] == a[k]) {
-                existe_deja = 1;
-                break;
-            }
-        }
-
-        if (existe_deja) {
-            continue; // Éviter les doublons
-        }
-
-        // Vérifier si a[i] existe dans b[]
-        for (int j = 0; j < n2; j++) {
-            if (a[i] == b[j]) {
-                printf(" %d", a[i]); // Affichage de l'élément commun
-                break;
-            }
-        }
-    }
-
     printf("\n");
     return 0;
 }
