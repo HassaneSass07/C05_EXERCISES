@@ -1,14 +1,5 @@
 #include <stdio.h>
 
-// Fonction qui vérifie si un élément est déjà apparu dans un tableau jusqu'à l'index donné
-int deja_present(int tab[], int taille, int valeur, int limite) {
-    for (int i = 0; i < limite; i++) {
-        if (tab[i] == valeur)
-            return 1; // Oui, déjà présent
-    }
-    return 0; // Non, pas encore rencontré
-}
-
 int main() {
     int n1, n2;
 
@@ -24,15 +15,24 @@ int main() {
     for (int i = 0; i < n2; i++)
         scanf("%d", &b[i]);
 
-    // Affichage de l'intersection sans doublons
+    // Affichage des éléments communs sans doublons
     printf("Intersection :");
     for (int i = 0; i < n1; i++) {
+        int deja_affiche = 0;
+
+        // Vérifie si a[i] a déjà été vu dans a[]
+        for (int k = 0; k < i; k++) {
+            if (a[i] == a[k]) {
+                deja_affiche = 1;
+                break;
+            }
+        }
+        if (deja_affiche) continue;
+
         // Vérifie si a[i] existe dans b[]
         for (int j = 0; j < n2; j++) {
             if (a[i] == b[j]) {
-                // Vérifie si ce n'est pas déjà affiché (doublon dans a[])
-                if (!deja_present(a, n1, a[i], i))
-                    printf(" %d", a[i]);
+                printf(" %d", a[i]);
                 break;
             }
         }
