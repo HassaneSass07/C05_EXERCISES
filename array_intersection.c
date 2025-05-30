@@ -3,46 +3,46 @@
 int main() {
     int n1, n2;
 
-    // Lire taille et éléments du premier tableau
+    // Lecture du premier tableau
     scanf("%d", &n1);
     int a[n1];
-    for (int i = 0; i < n1; i++)
-        scanf("%d", &a[i]);
+    for (int i = 0; i < n1; i++) scanf("%d", &a[i]);
 
-    // Lire taille et éléments du deuxième tableau
+    // Lecture du deuxième tableau
     scanf("%d", &n2);
     int b[n2];
-    for (int i = 0; i < n2; i++)
-        scanf("%d", &b[i]);
+    for (int i = 0; i < n2; i++) scanf("%d", &b[i]);
 
-    // Intersection max taille = min(n1,n2)
+    // Stockage des éléments communs sans doublons
     int inter[n1 < n2 ? n1 : n2];
-    int t_inter = 0;
+    int taille_inter = 0;
 
-    // Pour chaque élément du premier tableau
+    // Pour chaque élément de a
     for (int i = 0; i < n1; i++) {
+        // Vérifier si déjà dans inter
         int deja = 0;
-
-        // Vérifier doublon dans inter
-        for (int k = 0; k < t_inter; k++)
+        for (int k = 0; k < taille_inter; k++) {
             if (inter[k] == a[i]) {
                 deja = 1;
                 break;
             }
+        }
         if (deja) continue;
 
-        // Vérifier présence dans b
-        for (int j = 0; j < n2; j++)
+        // Vérifier si a[i] est dans b
+        for (int j = 0; j < n2; j++) {
             if (a[i] == b[j]) {
-                inter[t_inter++] = a[i]; // Ajouter si commun
+                inter[taille_inter++] = a[i];
                 break;
             }
+        }
     }
 
-    // Afficher résultats
+    // Affichage formaté avec espace uniquement entre éléments
     printf("Intersection :");
-    for (int i = 0; i < t_inter; i++)
+    for (int i = 0; i < taille_inter; i++) {
         printf(" %d", inter[i]);
+    }
     printf("\n");
 
     return 0;
