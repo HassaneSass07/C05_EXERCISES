@@ -2,42 +2,41 @@
 
 int main() {
     int n1, n2;
-
-    // Lecture de la taille et des éléments du premier tableau
-    scanf("%d", &n1);
+    scanf("%d", &n1);               // taille du premier tableau
     int a[n1];
     for (int i = 0; i < n1; i++)
-        scanf("%d", &a[i]);
+        scanf("%d", &a[i]);         // lecture de a[]
 
-    // Lecture de la taille et des éléments du deuxième tableau
-    scanf("%d", &n2);
+    scanf("%d", &n2);               // taille du deuxième tableau
     int b[n2];
     for (int i = 0; i < n2; i++)
-        scanf("%d", &b[i]);
+        scanf("%d", &b[i]);         // lecture de b[]
 
-    // Parcourir les éléments de a[]
+    int printed = 0;                // flag pour gérer les espaces
+
+    // pour chaque élément de a[]
     for (int i = 0; i < n1; i++) {
-        int deja_vu = 0;
-
-        // Vérifier si a[i] a déjà été traité
+        int seen_before = 0;
+        // éviter les doublons en a[]
         for (int k = 0; k < i; k++) {
             if (a[i] == a[k]) {
-                deja_vu = 1;
+                seen_before = 1;
                 break;
             }
         }
-        if (deja_vu)
-            continue;
+        if (seen_before) continue;
 
-        // Vérifier si a[i] existe dans b[]
+        // vérifier présence dans b[]
         for (int j = 0; j < n2; j++) {
             if (a[i] == b[j]) {
-                printf("%d ", a[i]);
+                if (printed) putchar(' ');
+                printf("%d", a[i]);
+                printed = 1;
                 break;
             }
         }
     }
 
-    printf("\n");
+    putchar('\n');
     return 0;
 }
