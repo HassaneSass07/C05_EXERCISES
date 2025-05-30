@@ -26,7 +26,7 @@ int main() {
                 break;
             }
         }
-        if (deja_imprime) continue;
+      
 
         // Cherche a[i] dans b[]
         for (int j = 0; j < n2; j++) {
