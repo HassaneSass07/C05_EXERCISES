@@ -1,56 +1,59 @@
 #include <stdio.h>
 
-// Lire un tableau depuis l'entrée
-void lire_tableau(int tab[], int n) {
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &tab[i]);
-    }
-}
-
-// Vérifie si val est présent dans tab[0..taille)
-int est_dans_tableau(int tab[], int taille, int val) {
-    for (int i = 0; i < taille; i++) {
-        if (tab[i] == val) return 1;
-    }
-    return 0;
-}
-
-// Remplit result[] avec les éléments communs à a[] et b[] sans doublons
-int trouver_intersection(int a[], int n1, int b[], int n2, int result[]) {
-    int taille = 0;
-    for (int i = 0; i < n1; i++) {
-        if (est_dans_tableau(b, n2, a[i]) && !est_dans_tableau(result, taille, a[i])) {
-            result[taille++] = a[i];
-        }
-    }
-    return taille;
-}
-
-// Affiche un tableau
-void afficher_tableau(int tab[], int taille) {
-    printf("Intersection :");
-    for (int i = 0; i < taille; i++) {
-        printf(" %d", tab[i]);
-    }
-    printf("\n");
-}
-
 int main() {
     int n1, n2;
 
-    // Lecture des tailles
+    // Lire la taille du premier tableau
     scanf("%d", &n1);
     int a[n1];
-    lire_tableau(a, n1);
+    for (int i = 0; i < n1; i++)
+        scanf("%d", &a[i]);
 
+    // Lire la taille du deuxième tableau
     scanf("%d", &n2);
     int b[n2];
-    lire_tableau(b, n2);
+    for (int i = 0; i < n2; i++)
+        scanf("%d", &b[i]);
 
-    int result[n1 < n2 ? n1 : n2]; // Tableau pour stocker l’intersection
-    int taille = trouver_intersection(a, n1, b, n2, result);
+    int intersection[n1 + n2]; // tableau temporaire pour stocker les communs
+    int taille_intersection = 0;
 
-    afficher_tableau(result, taille);
+    // Parcourir le premier tableau
+    for (int i = 0; i < n1; i++) {
+        int commun = 0;
+
+        // Vérifie si l'élément de a[] est présent dans b[]
+        for (int j = 0; j < n2; j++) {
+            if (a[i] == b[j]) {
+                commun = 1;
+                break;
+            }
+        }
+
+        // Vérifie que ce n'est pas un doublon dans le tableau résultat
+        if (commun) {
+            int deja_present = 0;
+            for (int k = 0; k < taille_intersection; k++) {
+                if (intersection[k] == a[i]) {
+                    deja_present = 1;
+                    break;
+                }
+            }
+
+            // Si l'élément est commun et pas encore ajouté, on l'ajoute
+            if (!deja_present) {
+                intersection[taille_intersection] = a[i];
+                taille_intersection++;
+            }
+        }
+    }
+
+    // Afficher les éléments communs
+    printf("Intersection :");
+    for (int i = 0; i < taille_intersection; i++) {
+        printf(" %d", intersection[i]);
+    }
+    printf("\n");
 
     return 0;
 }
